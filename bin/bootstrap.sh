@@ -16,6 +16,6 @@ fi
 
 cd ~/Desktop/projects/tools/manage-me
 
-ansible-playbook -i hosts dotfiles.yml --ask-become-pass
+ansible-playbook -i hosts init.yml --ask-become-pass
 
 echo "Integration done"
