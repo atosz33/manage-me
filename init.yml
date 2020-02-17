@@ -1,0 +1,5 @@
+- name: "Init packages"
+  hosts: local
+
+  roles:
+    - common
