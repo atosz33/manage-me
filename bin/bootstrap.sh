@@ -2,22 +2,26 @@
 
 set -e
 
-install_package()
+check_and_install_package()
 {
-    pacman -Sy ${1} --noconfirm
+    if ! [ -x "$(command -v ${1})" ]; then
+        pacman -Sy ${1} --noconfirm
+    fi
 }
 
-if ! [ -x "$(command -v ansible)" ]; then
-    pacman -Syu --noconfirm && install_package ansible
+if pacman -Syu --noconfirm; then
+    echo "Package database and upgrades succesfully applied"
+else
+    echo "Error during package database / upgrade, resolve manually"
+    exit
 fi
 
-if ! [ -x "$(command -v git)" ]; then
-    install_package git
-fi
+check_and_install_package ansible
+check_and_install_package git
 
 [ ! -d "/home/$USER/Desktop/projects/tools/manage-me" ] && \
     mkdir -p ~/Desktop/projects/tools/      && \
-    git clone "https://github.com/atosz33/manage-me.git" "/home/$USER/Desktop/projects/tools"
+    git clone "https://github.com/atosz33/manage-me.git" "/home/$USER/Desktop/projects/tools/manage-me"
 
 cd /home/$USER/Desktop/projects/tools/manage-me
 
