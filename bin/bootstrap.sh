@@ -2,19 +2,24 @@
 
 set -e
 
+install_package()
+{
+    pacman -Sy ${1} --noconfirm
+}
+
 if ! [ -x "$(command -v ansible)" ]; then
-    pacman -Sy ansible
+    pacman -Syu --noconfirm && install_package ansible
 fi
 
 if ! [ -x "$(command -v git)" ]; then
-    pacman -Sy git
+    install_package git
 fi
 
-[ ! -d "~/Desktop/projects/tools/manage-me" ] && \
+[ ! -d "/home/$USER/Desktop/projects/tools/manage-me" ] && \
     mkdir -p ~/Desktop/projects/tools/      && \
-    git clone "https://github.com/atosz33/manage-me.git" "~/Desktop/projects/tools"
+    git clone "https://github.com/atosz33/manage-me.git" "/home/$USER/Desktop/projects/tools"
 
-cd ~/Desktop/projects/tools/manage-me
+cd /home/$USER/Desktop/projects/tools/manage-me
 
 ansible-playbook -i hosts init.yml --ask-become-pass
 
