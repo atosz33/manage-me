@@ -5,11 +5,11 @@ set -e
 check_and_install_package()
 {
     if ! [ -x "$(command -v ${1})" ]; then
-        pacman -Sy ${1} --noconfirm
+        sudo pacman -Sy ${1} --noconfirm
     fi
 }
 
-if pacman -Syu --noconfirm; then
+if sudo pacman -Syu --noconfirm; then
     echo "Package database and upgrades succesfully applied"
 else
     echo "Error during package database / upgrade, resolve manually"

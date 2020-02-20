@@ -1,4 +1,14 @@
 - name: "Install tmux"
   pacman: name=tmux state=present
-  tags: tmux
-  become: true
+      tags: tmux
+      become: true
+
+- name: "Install vim"
+  pacman: name=vim state=present
+      tags: tmux
+      become: true
+
+- name: "Install docker"
+  pacman: name=docker state=present
+      tags: docker
+      become: true
